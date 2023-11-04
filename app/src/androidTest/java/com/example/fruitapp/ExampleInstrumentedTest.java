@@ -1,6 +1,7 @@
 package com.example.fruitapp;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -21,6 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fruitapp.model.Fruit;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +55,12 @@ public class ExampleInstrumentedTest {
                     public void onResponse(JSONObject response) {
                         JSONArray jsonArray = null;
                         try {
+                            Gson gson = new Gson();
                             jsonArray = response.getJSONArray("data");
+
+                            for (int i = 0; i <= jsonArray.length(); i++){
+                                Log.d("Qiu Qiu", "onResponse: " + jsonArray.getString(0));
+                            }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }

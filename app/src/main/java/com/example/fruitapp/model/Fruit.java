@@ -1,10 +1,19 @@
 package com.example.fruitapp.model;
 
+import android.util.Log;
+
+import com.google.gson.annotations.SerializedName;
+
 public class Fruit {
+    @SerializedName("id")
     private int Id;
+    @SerializedName("name")
     private String Name;
+    @SerializedName("price")
     private int Price;
+    @SerializedName("fruitImage")
     private String PhotoURL;
+    @SerializedName("audited_user")
     private String AuditedUser;
 
     public Fruit(int id, String name, int price, String photoURL, String auditedUser) {
@@ -56,5 +65,13 @@ public class Fruit {
 
     public void setAuditedUser(String auditedUser) {
         AuditedUser = auditedUser;
+    }
+
+    public void printLog(){
+        Log.d("QiuQiu2", "ID: " + String.valueOf(Id));
+        Log.d("QiuQiu2", "Name: " + Name);
+        Log.d("QiuQiu2", "Price: " + String.valueOf(Price));
+        Log.d("QiuQiu2", "Photo URL: " + PhotoURL);
+        Log.d("QiuQiu2", "AuditedUser: " + AuditedUser);
     }
 }

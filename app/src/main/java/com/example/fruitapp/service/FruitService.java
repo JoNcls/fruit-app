@@ -1,6 +1,8 @@
 package com.example.fruitapp.service;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -11,7 +13,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.fruitapp.model.Fruit;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,10 +35,12 @@ public class FruitService {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Gson gson = new Gson();
                             JSONArray jsonArray = response.getJSONArray("data");
 
-                            for (int i = 0; i <= jsonArray.length(); i++){
-                                System.out.println(jsonArray);
+                            for (int i = 0; i < jsonArray.length(); i++){
+                                Fruit fruit = gson.fromJson(jsonArray.getString(i), Fruit.class);
+                                fruitArrayList.add(fruit);
                             }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -46,7 +49,7 @@ public class FruitService {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error.toString());
+                Log.d("Error", "onErrorResponse: " + error.toString());
             }
         }
         ) {
@@ -57,6 +60,20 @@ public class FruitService {
                 return params;
             }
         };
+
+        queue.add(stringRequest);
+
+        try {
+            Thread.sleep(5 * 1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (fruitArrayList.size() == 0){
+            Toast.makeText(context, "Hello", Toast.LENGTH_LONG).show();
+        } else {
+            fruitArrayList.get(0).printLog();
+        }
 
         return fruitArrayList;
     }
