@@ -1,17 +1,6 @@
-package com.example.fruitapp;
+package com.example.fruitapp.service;
 
 import android.content.Context;
-
-import androidx.test.platform.app.InstrumentationRegistry;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,30 +8,24 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fruitapp.model.Fruit;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-@RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.fruitapp", appContext.getPackageName());
-    }
+public class FruitService {
+    public ArrayList<Fruit> findAllFruits(Context context){
+        ArrayList<Fruit> fruitArrayList = new ArrayList<Fruit>();
 
-    @Test
-    public void useVolleyInGoogle(){
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        RequestQueue queue = Volley.newRequestQueue(appContext);
+        RequestQueue queue = Volley.newRequestQueue(context);
 
         String url = "https://kwpzm9jf-58888.asse.devtunnels.ms/api/fruits";
 
@@ -50,9 +33,12 @@ public class ExampleInstrumentedTest {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        JSONArray jsonArray = null;
                         try {
-                            jsonArray = response.getJSONArray("data");
+                            JSONArray jsonArray = response.getJSONArray("data");
+
+                            for (int i = 0; i <= jsonArray.length(); i++){
+                                System.out.println(jsonArray);
+                            }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -62,7 +48,7 @@ public class ExampleInstrumentedTest {
             public void onErrorResponse(VolleyError error) {
                 System.out.println(error.toString());
             }
-            }
+        }
         ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -72,12 +58,6 @@ public class ExampleInstrumentedTest {
             }
         };
 
-        queue.add(stringRequest);
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        return fruitArrayList;
     }
 }
