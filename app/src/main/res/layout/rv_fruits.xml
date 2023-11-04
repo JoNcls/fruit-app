@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/iV_FruitImage"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tV_FruitName"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_FruitPrice"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_below="@id/tV_FruitName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>
