@@ -17,6 +17,10 @@ public class User {
         Password = password;
     }
 
+    public User() {
+
+    }
+
     public int getId() {
         return Id;
     }
