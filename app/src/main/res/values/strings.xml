@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FruitApp</string>
+    <string name="store_desc">Ini bagian deskripsi dari tokonya, ngejelasin alamat dan rating dari pengguna lain mengenai toko ini</string>
+    <string name="fruit_desc">Ini bagian deskripsi dari buahnya, kasih tau berbagai mengenai buah yang di pajang biar konsumen tau</string>
 </resources>
