@@ -6,6 +6,7 @@
     android:background="@drawable/form_bg"
     android:layout_margin="10dp">
     <ImageView
+        android:id="@+id/store_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_shopping_cart_24"
@@ -15,17 +16,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/store_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Super Indo"
             android:textSize="24sp"
             android:textColor="@color/white"/>
         <TextView
+            android:id="@+id/store_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/store_desc"
             android:textColor="@color/white"/>
         <Button
+            android:id="@+id/select_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose"

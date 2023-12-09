@@ -2,4 +2,8 @@
     <string name="app_name">FruitApp</string>
     <string name="store_desc">Ini bagian deskripsi dari tokonya, ngejelasin alamat dan rating dari pengguna lain mengenai toko ini</string>
     <string name="fruit_desc">Ini bagian deskripsi dari buahnya, kasih tau berbagai mengenai buah yang di pajang biar konsumen tau</string>
+    <string name="user_greeting">Welcome, Nama User</string>
+    <string name="user_profile">Nama User</string>
+    <string name="address_profile">Alamat</string>
+    <string name="balance">Rp. 99.001</string>
 </resources>
