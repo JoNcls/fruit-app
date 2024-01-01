@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/form_bg"
+    android:background="@drawable/bg_page"
     android:layout_margin="10dp">
     <ImageView
         android:id="@+id/store_picture"
@@ -19,13 +19,11 @@
             android:id="@+id/store_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/white"/>
+            android:textSize="24sp"/>
         <TextView
             android:id="@+id/store_description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"/>
+            android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/select_store"
             android:layout_width="wrap_content"
