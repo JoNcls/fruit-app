@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private Button dashboardButton;
-    private Button loginButton;
+    private Button loginButton, profileButton;
     private FruitAdapter fruitAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,29 +46,37 @@ public class MainActivity extends AppCompatActivity {
         dashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dashboardIntent();
+                dashIntent();
             }
         });
 
-        dashboardButton = (Button) findViewById(R.id.dashboard_btn);
-        dashboardButton.setOnClickListener(new View.OnClickListener() {
+        loginButton = (Button) findViewById(R.id.login_btn);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dashboardIntent();
+                loginIntent();
             }
         });
-        dashboardButton = (Button) findViewById(R.id.dashboard_btn);
-        dashboardButton.setOnClickListener(new View.OnClickListener() {
+        profileButton = (Button) findViewById(R.id.profile_btn);
+        profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dashboardIntent();
+                profileIntent();
             }
         });
 
     }
-    public void dashboardIntent(){
+    public void dashIntent(){
         Intent dashIntent = new Intent(MainActivity.this, DashboardActivity.class);
         startActivity(dashIntent);
+    }
+    public void loginIntent(){
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(loginIntent);
+    }
+    public void profileIntent(){
+        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(profileIntent);
     }
 
     @Override
@@ -78,23 +86,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_dashboard:
-                Intent dashboardIntent = new Intent(MainActivity.this, DashboardActivity.class);
-                startActivity(dashboardIntent);
-                break;
-            case R.id.nav_login:
-                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-                break;
-            case R.id.nav_help:
-                Toast.makeText(this, "Help", Toast.LENGTH_LONG).show();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()){
+//            case R.id.nav_dashboard:
+//                Intent dashboardIntent = new Intent(MainActivity.this, DashboardActivity.class);
+//                startActivity(dashboardIntent);
+//                break;
+//            case R.id.nav_login:
+//                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(loginIntent);
+//                break;
+//            case R.id.nav_help:
+//                Toast.makeText(this, "Help", Toast.LENGTH_LONG).show();
+//                break;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//        return true;
+//    }
 }

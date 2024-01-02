@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_page">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,6 +32,11 @@
                 android:text="@string/address_profile"
                 android:textAlignment="viewEnd"
                 android:textSize="14sp"/>
+            <Button
+                android:id="@+id/favorite_page_intent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Favorite"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -46,17 +52,9 @@
         android:text="@string/balance"
         android:padding="10dp"
         android:textSize="32sp"/>
-    <TextView
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/profile_maps"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textSize="28sp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="google map api"
-        android:gravity="center"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

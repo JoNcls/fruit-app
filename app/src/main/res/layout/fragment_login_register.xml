@@ -48,14 +48,14 @@
             android:layout_height="wrap_content"
             android:hint="Confirm Password"/>
         <Button
-            android:id="@+id/login_submit"
+            android:id="@+id/register_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/register_fill"
             />
         <Button
-            android:id="@+id/create_account_submit"
+            android:id="@+id/login_page_intent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_fill"
