@@ -20,19 +20,21 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}"/>
+
         <activity
             android:name=".RegisterFragment"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
+
         <activity android:name=".DashboardActivity" />
         <activity android:name=".HelpActivity" />
-        <activity
-            android:name=".ProfileActivity"/>
+        <activity android:name=".ProfileActivity"/>
         <activity android:name=".ForgotFragment" />
         <activity android:name=".FavoriteFragment" />
         <activity android:name=".SettingActivity" />
+        <activity android:name=".ReportFragment" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
