@@ -39,7 +39,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void onStartApp(){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        onCreate(db);
     }
 
     public Boolean login(String username, String password){

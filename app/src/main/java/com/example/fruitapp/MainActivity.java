@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper dbHelper = new DBHelper(this);
         dbHelper.onStartApp();
-        dbHelper.Register("Admin", "Admin1234");
+        dbHelper.Register("Admin", "Admin12345");
 
         FruitService fruitService = new FruitService();
 
