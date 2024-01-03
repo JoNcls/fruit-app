@@ -27,7 +27,7 @@
         <activity android:name=".DashboardActivity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".ProfileActivity"/>
-        <activity android:name=".ForgotFragment" />
+        <activity android:name=".ForgotActivity" />
         <activity android:name=".FavoriteFragment" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".ReportFragment" />

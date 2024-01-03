@@ -37,6 +37,11 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    public void onStartApp(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_USER);
+    }
+
     public Boolean login(String username, String password){
         String queryLogin = "SELECT * FROM " + TABLE_USER
                 + " WHERE " + TABLE_USER_USERNAME + "= ?"

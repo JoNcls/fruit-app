@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DBHelper dbHelper = new DBHelper(this);
+        dbHelper.onStartApp();
         dbHelper.Register("Admin", "Admin1234");
 
         FruitService fruitService = new FruitService();

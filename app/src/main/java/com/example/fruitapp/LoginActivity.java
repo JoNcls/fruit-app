@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(regisIntent);
     }
     public void forgotIntent(){
-        Intent forgotIntent = new Intent(LoginActivity.this, ForgotFragment.class);
+        Intent forgotIntent = new Intent(LoginActivity.this, ForgotActivity.class);
         startActivity(forgotIntent);
     }
 
