@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                 dashboardIntent();
             }
             else {
+                eT_Password.setText("");
                 Toast.makeText(this, "Username and Password are incorrect.", Toast.LENGTH_SHORT).show();
             }
         }

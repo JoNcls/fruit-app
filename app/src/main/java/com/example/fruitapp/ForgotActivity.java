@@ -32,6 +32,13 @@ public class ForgotActivity extends AppCompatActivity {
                 ForgotPassword();
             }
         });
+
+        btn_Login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginIntent();
+            }
+        });
     }
 
     private void ForgotPassword(){
@@ -39,6 +46,7 @@ public class ForgotActivity extends AppCompatActivity {
         if (username.isEmpty()){
             Toast.makeText(this, "Please input your username", Toast.LENGTH_SHORT).show();
         } else {
+            eT_Username.setText("");
             String password = dbHelper.GetPassword(username);
             Toast.makeText(this, "Your password: " + password, Toast.LENGTH_SHORT).show();
         }

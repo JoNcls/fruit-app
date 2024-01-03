@@ -31,21 +31,22 @@
         android:padding="25dp"
         android:gravity="center"
         >
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/username_fill"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="@string/username_fill"
             />
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/password_fill"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="@string/password_fill"
             />
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
+            android:id="@+id/confirm_password_fill"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Confirm Password"/>
         <Button
             android:id="@+id/register_submit"
