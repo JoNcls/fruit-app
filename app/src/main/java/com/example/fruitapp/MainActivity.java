@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.fruitapp.adapter.DashboardAdapter;
 import com.example.fruitapp.adapter.FruitAdapter;
 import com.example.fruitapp.model.Fruit;
 import com.example.fruitapp.service.FruitService;
@@ -22,9 +23,8 @@ import com.example.fruitapp.service.FruitService;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private Button dashboardButton;
-    private Button loginButton, profileButton;
-    private FruitAdapter fruitAdapter;
+    private Button loginButton, registerButton;
+    private DashboardAdapter dashboardAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,23 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         FruitService fruitService = new FruitService();
 
-        ArrayList<Fruit> arrayList = fruitService.findAllFruits(this);
+        ArrayList<Fruit> arrayList = new FruitService().findAllFruits(this);
 
-        fruitAdapter = new FruitAdapter(arrayList);
+        dashboardAdapter = new DashboardAdapter(arrayList);
 
         RecyclerView rv_fruits = (RecyclerView) findViewById(R.id.rv_fruits);
 
-        rv_fruits.setAdapter(fruitAdapter);
+        rv_fruits.setAdapter(dashboardAdapter);
         rv_fruits.setLayoutManager(new LinearLayoutManager(this));
-
-
-        dashboardButton = (Button) findViewById(R.id.dashboard_btn);
-        dashboardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dashIntent();
-            }
-        });
 
         loginButton = (Button) findViewById(R.id.login_btn);
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -57,52 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 loginIntent();
             }
         });
-        profileButton = (Button) findViewById(R.id.profile_btn);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                profileIntent();
-            }
-        });
-
-    }
-    public void dashIntent(){
-        Intent dashIntent = new Intent(MainActivity.this, DashboardActivity.class);
-        startActivity(dashIntent);
     }
     public void loginIntent(){
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
-    public void profileIntent(){
-        Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
-        startActivity(profileIntent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.navigation_menu, menu);
-        return true;
-    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.nav_dashboard:
-//                Intent dashboardIntent = new Intent(MainActivity.this, DashboardActivity.class);
-//                startActivity(dashboardIntent);
-//                break;
-//            case R.id.nav_login:
-//                Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(loginIntent);
-//                break;
-//            case R.id.nav_help:
-//                Toast.makeText(this, "Help", Toast.LENGTH_LONG).show();
-//                break;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//        return true;
-//    }
 }

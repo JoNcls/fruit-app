@@ -6,33 +6,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class Fruit {
     @SerializedName("id")
-    private int Id;
-    @SerializedName("name")
+    private int ID;
+    @SerializedName("productGroupCode")
+    private String Code;
+    @SerializedName("product")
     private String Name;
     @SerializedName("price")
     private int Price;
-    @SerializedName("fruitImage")
-    private String PhotoURL;
-    @SerializedName("audited_user")
-    private String AuditedUser;
-
-    public Fruit(int id, String name, int price, String photoURL, String auditedUser) {
-        Id = id;
-        Name = name;
-        Price = price;
-        PhotoURL = photoURL;
-        AuditedUser = auditedUser;
-    }
 
     public Fruit() {
     }
 
-    public int getId() {
-        return Id;
+    public Fruit(int ID, String code, String name, int price) {
+        this.ID = ID;
+        this.Code = code;
+        this.Name = name;
+        this.Price = price;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getCode() {
+        return Code;
+    }
+
+    public void setCode(String code) {
+        this.Code = code;
     }
 
     public String getName() {
@@ -40,7 +45,7 @@ public class Fruit {
     }
 
     public void setName(String name) {
-        Name = name;
+        this.Name = name;
     }
 
     public int getPrice() {
@@ -48,30 +53,6 @@ public class Fruit {
     }
 
     public void setPrice(int price) {
-        Price = price;
-    }
-
-    public String getPhotoURL() {
-        return PhotoURL;
-    }
-
-    public void setPhotoURL(String photoURL) {
-        PhotoURL = photoURL;
-    }
-
-    public String getAuditedUser() {
-        return AuditedUser;
-    }
-
-    public void setAuditedUser(String auditedUser) {
-        AuditedUser = auditedUser;
-    }
-
-    public void printLog(){
-        Log.d("QiuQiu2", "ID: " + String.valueOf(Id));
-        Log.d("QiuQiu2", "Name: " + Name);
-        Log.d("QiuQiu2", "Price: " + String.valueOf(Price));
-        Log.d("QiuQiu2", "Photo URL: " + PhotoURL);
-        Log.d("QiuQiu2", "AuditedUser: " + AuditedUser);
+        this.Price = price;
     }
 }

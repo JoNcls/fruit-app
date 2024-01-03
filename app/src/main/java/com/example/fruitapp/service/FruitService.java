@@ -9,6 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.fruitapp.model.Fruit;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class FruitService {
     public ArrayList<Fruit> findAllFruits(Context context){
@@ -28,38 +30,33 @@ public class FruitService {
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url = "https://kwpzm9jf-58888.asse.devtunnels.ms/api/fruits";
+        String url = "https://ec.europa.eu/agrifood/api/fruitAndVegetable/products";
 
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
+        JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         try {
                             Gson gson = new Gson();
-                            JSONArray jsonArray = response.getJSONArray("data");
 
-                            for (int i = 0; i < jsonArray.length(); i++){
-                                Fruit fruit = gson.fromJson(jsonArray.getString(i), Fruit.class);
+                            for (int i = 0; i < response.length(); i++){
+                                Fruit fruit = gson.fromJson(response.getString(i), Fruit.class);
+                                fruit.setID(i);
+                                fruit.setPrice(GeneratePrice());
                                 fruitArrayList.add(fruit);
                             }
                         } catch (JSONException e) {
+                            Log.d("QiuQiu", "JSONException: ");
                             throw new RuntimeException(e);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error", "onErrorResponse: " + error.toString());
+                Log.d("QiuQiu", "onErrorResponse: " + error.toString());
             }
         }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("X-API-Key", "NmMwMTIxOTMtODQ3Zi00ZWVjLTljOGUtNGM3ZDAwYjdmNzU4");
-                return params;
-            }
-        };
+        );
 
         queue.add(stringRequest);
 
@@ -69,12 +66,11 @@ public class FruitService {
             throw new RuntimeException(e);
         }
 
-        if (fruitArrayList.size() == 0){
-            Toast.makeText(context, "Hello", Toast.LENGTH_LONG).show();
-        } else {
-            fruitArrayList.get(0).printLog();
-        }
-
         return fruitArrayList;
+    }
+
+    private int GeneratePrice(){
+        Random random = new Random();
+        return random.nextInt(9001) * 100 + 10000;
     }
 }
