@@ -31,13 +31,13 @@
         android:gravity="center"
         >
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/username_fill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username_fill"
             />
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/password_fill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

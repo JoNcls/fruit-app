@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.fruitapp.adapter.DashboardAdapter;
 import com.example.fruitapp.adapter.FruitAdapter;
+import com.example.fruitapp.helper.DBHelper;
 import com.example.fruitapp.model.Fruit;
 import com.example.fruitapp.service.FruitService;
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DBHelper dbHelper = new DBHelper(this);
+        dbHelper.Register("Admin", "Admin1234");
 
         FruitService fruitService = new FruitService();
 
