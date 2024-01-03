@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class RegisterFragment extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     Button loginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class RegisterFragment extends AppCompatActivity {
         });
     }
     public void loginIntent(){
-        Intent loginIntent = new Intent(RegisterFragment.this, LoginActivity.class);
+        Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
 }

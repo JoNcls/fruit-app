@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void regisIntent(){
-        Intent regisIntent = new Intent(LoginActivity.this, RegisterFragment.class);
+        Intent regisIntent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(regisIntent);
     }
     public void forgotIntent(){

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         FruitService fruitService = new FruitService();
 
-        ArrayList<Fruit> arrayList = new FruitService().findAllFruits(this);
+        ArrayList<Fruit> arrayList = fruitService.findAllFruits(this);
 
         dashboardAdapter = new DashboardAdapter(arrayList);
 
@@ -42,15 +42,29 @@ public class MainActivity extends AppCompatActivity {
         rv_fruits.setLayoutManager(new LinearLayoutManager(this));
 
         loginButton = (Button) findViewById(R.id.login_btn);
+        registerButton = (Button) findViewById(R.id.register_btn);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loginIntent();
             }
         });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerIntent();
+            }
+        });
     }
     public void loginIntent(){
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
+    }
+
+    public void registerIntent(){
+        Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
+        startActivity(registerIntent);
     }
 }
