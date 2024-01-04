@@ -31,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DBHelper dbHelper = new DBHelper(this);
-        dbHelper.onStartApp();
-        dbHelper.Register("Admin", "Admin12345");
-
         FruitService fruitService = new FruitService();
 
         ArrayList<Fruit> arrayList = fruitService.findAllFruits(this);

@@ -16,18 +16,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FruitApp"
         tools:targetApi="33">
+        <activity
+            android:name=".SplashScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
-
         <activity android:name=".DashboardFragment" />
         <activity android:name=".DashboardActivity2" />
         <activity android:name=".HelpActivity" />
-        <activity android:name=".ProfileActivity"/>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".ForgotActivity" />
         <activity android:name=".FavoriteFragment" />
         <activity android:name=".SettingFragment" />
@@ -35,11 +42,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

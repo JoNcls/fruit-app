@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -117,5 +118,27 @@ public class DBHelper extends SQLiteOpenHelper {
         else {
             return "";
         }
+    }
+
+    public void ChangePassword(String Username, String Password){
+        String queryChangePassword = "UPDATE " + TABLE_USER
+                + " SET " + TABLE_USER_PASSWORD + "=?"
+                + " WHERE " + TABLE_USER_USERNAME + "=?";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(queryChangePassword, new String[]{Password, Username});
+    }
+
+    public void Logout(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_SESSION);
+    }
+
+    public void DeteleAccount(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryDeleteAccount = "DELETE FROM " + TABLE_USER
+                + " WHERE " + TABLE_USER_USERNAME + "=?";
+        db.execSQL(queryDeleteAccount, new String[] {username});
     }
 }

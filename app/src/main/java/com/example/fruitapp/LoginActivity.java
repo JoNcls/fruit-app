@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             Boolean valid = dbHelper.login(username, password);
 
             if (valid){
+                dbHelper.SaveSession(username);
                 dashboardIntent();
             }
             else {
