@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_page">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -12,6 +13,9 @@
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAllCaps="true"
         android:padding="10dp"/>
 
     <LinearLayout
@@ -27,20 +31,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_greeting"
+            android:textColor="@color/black"
             android:textSize="16sp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Balance: "
+            android:textColor="@color/black"
             android:layout_gravity="end"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance"
             android:layout_gravity="end"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"/>
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -62,14 +72,14 @@
         <Button
             android:id="@+id/setting_dashboard_intent"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:text="Setting"/>
         <Button
             android:id="@+id/help_dashboard_intent"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
             android:text="Help"/>

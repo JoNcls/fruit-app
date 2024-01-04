@@ -46,7 +46,7 @@ public class FruitService {
                                 fruitArrayList.add(fruit);
                             }
                         } catch (JSONException e) {
-                            Log.d("QiuQiu", "JSONException: ");
+                            Log.d("QiuQiu", "JSONException: " + e);
                             throw new RuntimeException(e);
                         }
                     }

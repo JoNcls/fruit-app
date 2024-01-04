@@ -18,6 +18,10 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_USER_USERNAME = "username";
     private static final String TABLE_USER_PASSWORD = "password";
 
+    private static final String TABLE_SESSION = "msSession";
+
+    private static final String TABLE_SESSION_USERNAME = "username";
+
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -29,6 +33,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 + TABLE_USER_USERNAME  + " TEXT,"
                 + TABLE_USER_PASSWORD + " TEXT" + ")";
         sqLiteDatabase.execSQL(queryCreateUserTable);
+        String queryCreateSessionTable = "CREATE TABLE " + TABLE_SESSION+ "("
+                + TABLE_SESSION_USERNAME  + " TEXT" + ")";
+        sqLiteDatabase.execSQL(queryCreateSessionTable);
     }
 
     @Override
@@ -40,6 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onStartApp(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION);
         onCreate(db);
     }
 
@@ -82,6 +90,32 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         else {
             return "Username not found";
+        }
+    }
+
+    public void SaveSession(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_SESSION);
+
+        String querySaveSession = "INSERT INTO " + TABLE_SESSION
+                + "(" + TABLE_USER_USERNAME + ")"
+                + " VALUES " + "(?)";
+
+        db.execSQL(querySaveSession, new String[] {username});
+    }
+
+    public String GetSession(){
+        String queryGetSession = "SELECT * FROM " + TABLE_SESSION;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryGetSession, null);
+
+        if (cursor.moveToFirst()){
+            return String.valueOf(cursor.getString(0));
+        }
+        else {
+            return "";
         }
     }
 }

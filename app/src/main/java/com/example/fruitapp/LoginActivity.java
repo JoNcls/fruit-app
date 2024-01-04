@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         dbHelper = new DBHelper(this);
-        Log.d("QiuQiu", "onCreate: LoginActivity: " + dbHelper.GetPassword("Admin"));
 
         eT_Username = (EditText) findViewById(R.id.username_fill);
         eT_Password = (EditText) findViewById(R.id.password_fill);
