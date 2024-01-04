@@ -8,6 +8,10 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.fruitapp.model.Fruit;
+
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "DB_FRUITS";
@@ -23,6 +27,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_SESSION_USERNAME = "username";
 
+    private static final String TABLE_FRUIT = "msFruit";
+    private static final String TABLE_FRUIT_ID = "id";
+    private static final String TABLE_FRUIT_CODE = "code";
+    private static final String TABLE_FRUIT_NAME = "name";
+    private static final String TABLE_FRUIT_PRICE = "price";
+
+    private static final String TABLE_CART = "trCart";
+    private static final String TABLE_CART_ID = "id";
+    private static final String TABLE_CART_USERNAME = "username";
+    private static final String TABLE_CART_FRUIT_ID = "fruit_id";
+
+
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -37,6 +53,13 @@ public class DBHelper extends SQLiteOpenHelper {
         String queryCreateSessionTable = "CREATE TABLE " + TABLE_SESSION+ "("
                 + TABLE_SESSION_USERNAME  + " TEXT" + ")";
         sqLiteDatabase.execSQL(queryCreateSessionTable);
+        String queryCreateFruitTable = "CREATE TABLE " + TABLE_FRUIT+ "("
+                + TABLE_FRUIT_ID + " INTEGER PRIMARY KEY,"
+                + TABLE_FRUIT_CODE  + " TEXT, "
+                + TABLE_FRUIT_NAME + " TEXT, "
+                + TABLE_FRUIT_PRICE  + " NUMERIC "
+                + ")";
+        sqLiteDatabase.execSQL(queryCreateFruitTable);
     }
 
     @Override
@@ -49,6 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRUIT);
         onCreate(db);
     }
 
@@ -140,5 +164,63 @@ public class DBHelper extends SQLiteOpenHelper {
         String queryDeleteAccount = "DELETE FROM " + TABLE_USER
                 + " WHERE " + TABLE_USER_USERNAME + "=?";
         db.execSQL(queryDeleteAccount, new String[] {username});
+    }
+
+    public void AddFruits(ArrayList<Fruit> fruitArrayList){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        for (Fruit fruit: fruitArrayList) {
+            String queryInsertFruit = "INSERT INTO " + TABLE_FRUIT
+                    + "(" + TABLE_FRUIT_ID + ","
+                    + TABLE_FRUIT_CODE + ","
+                    + TABLE_FRUIT_NAME + ","
+                    + TABLE_FRUIT_PRICE +")"
+                    + " VALUES " + "(?,?,?,?)";
+            db.execSQL(queryInsertFruit, new Object[]{
+                    fruit.getID(),
+                    fruit.getCode(),
+                    fruit.getName(),
+                    fruit.getPrice(),
+            });
+        }
+    }
+
+    public ArrayList<Fruit> GetFruitsList(){
+        String queryCountFruits = "SELECT * FROM " + TABLE_FRUIT;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryCountFruits, null);
+
+        ArrayList<Fruit> tempFruits = new ArrayList<Fruit>();
+        if (cursor.moveToFirst()){
+            do {
+                Fruit fruit = new Fruit();
+                fruit.setID(Integer.parseInt(cursor.getString(0)));
+                fruit.setCode(cursor.getString(1));
+                fruit.setName(cursor.getString(2));
+                fruit.setPrice(cursor.getInt(3));
+                tempFruits.add(fruit);
+            } while (cursor.moveToNext());
+        }
+
+        return tempFruits;
+    }
+
+    public int GetCountFruits(){
+        String queryCountFruits = "SELECT * FROM " + TABLE_FRUIT;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryCountFruits, null);
+
+        int count = 0;
+        if (cursor.moveToFirst()){
+            do {
+                count += 1;
+            } while (cursor.moveToNext());
+        }
+
+        return count;
     }
 }

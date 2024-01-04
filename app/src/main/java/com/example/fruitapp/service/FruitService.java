@@ -12,6 +12,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fruitapp.helper.GetDataService;
+import com.example.fruitapp.helper.RetrofitHelper;
 import com.example.fruitapp.model.Fruit;
 import com.google.gson.Gson;
 
@@ -24,13 +26,28 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class FruitService {
-    public ArrayList<Fruit> findAllFruits(Context context){
-        ArrayList<Fruit> fruitArrayList = new ArrayList<Fruit>();
+    private ArrayList<Fruit> fruitArrayList = new ArrayList<Fruit>();
+
+    private GetDataService service;
+    private Call<ArrayList<Fruit>> call_fruits;
+
+    public void findAllFruits(Context context){
+        this.fruitArrayList.add(new Fruit(1, "BAN", "Banana", GeneratePrice()));
+        this.fruitArrayList.add(new Fruit(2, "WAT", "Watermelon", GeneratePrice()));
+        this.fruitArrayList.add(new Fruit(3, "MEL", "Melon", GeneratePrice()));
+        this.fruitArrayList.add(new Fruit(4, "ORA", "Orange", GeneratePrice()));
+        this.fruitArrayList.add(new Fruit(5, "DRF", "Dragon Fruit", GeneratePrice()));
+
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
         String url = "https://ec.europa.eu/agrifood/api/fruitAndVegetable/products";
+
+        ArrayList<Fruit> tempFruits = new ArrayList<Fruit>();
 
         JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -41,9 +58,9 @@ public class FruitService {
 
                             for (int i = 0; i < response.length(); i++){
                                 Fruit fruit = gson.fromJson(response.getString(i), Fruit.class);
-                                fruit.setID(i);
+                                fruit.setID(i+6);
                                 fruit.setPrice(GeneratePrice());
-                                fruitArrayList.add(fruit);
+                                tempFruits.add(fruit);
                             }
                         } catch (JSONException e) {
                             Log.d("QiuQiu", "JSONException: " + e);
@@ -58,15 +75,46 @@ public class FruitService {
         }
         );
 
-        queue.add(stringRequest);
-
         try {
-            Thread.sleep(5 * 1000);
+            Thread.sleep(3 * 1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        return fruitArrayList;
+        this.fruitArrayList.addAll(tempFruits);
+
+        queue.add(stringRequest);
+    }
+
+    public void findAllFruitsRetrofit(Context context){
+        service = RetrofitHelper.get_retrofit_instance().create(GetDataService.class);
+        call_fruits = service.getFruits();
+
+        call_fruits.enqueue(new Callback<ArrayList<Fruit>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Fruit>> call, retrofit2.Response<ArrayList<Fruit>> response) {
+                generate_fruits(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Fruit>> call, Throwable t) {
+                Toast.makeText(context, "Maaf, Sepuh, masih pemula.", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void generate_fruits(ArrayList<Fruit> fruits){
+        int ID = 6;
+        for (Fruit fruit: fruits){
+            fruit.setID(ID);
+            fruit.setPrice(GeneratePrice());
+            ID += 1;
+        }
+        this.fruitArrayList = fruits;
+    }
+
+    public ArrayList<Fruit> GetFruitsList(){
+        return this.fruitArrayList;
     }
 
     private int GeneratePrice(){

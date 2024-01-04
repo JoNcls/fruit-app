@@ -24,18 +24,21 @@ import com.example.fruitapp.service.FruitService;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
     private Button loginButton, registerButton;
     private DashboardAdapter dashboardAdapter;
+    private DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FruitService fruitService = new FruitService();
+        dbHelper = new DBHelper(this);
 
-        ArrayList<Fruit> arrayList = fruitService.findAllFruits(this);
+        ArrayList<Fruit> fruitArrayList = dbHelper.GetFruitsList();
 
-        dashboardAdapter = new DashboardAdapter(arrayList);
+        dashboardAdapter = new DashboardAdapter(fruitArrayList);
 
         RecyclerView rv_fruits = (RecyclerView) findViewById(R.id.rv_fruits);
 
