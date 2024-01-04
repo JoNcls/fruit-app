@@ -20,7 +20,7 @@ public class DashboardActivity2 extends AppCompatActivity implements NavigationV
     private FragmentManager fragmentManager = getSupportFragmentManager();
 
     private Fragment dashboardFragment = new DashboardFragment();
-
+    private Fragment cartFragment = new CartFragment();
     private Fragment settingFragment = new SettingFragment();
     private Fragment activateFragment;
 
@@ -39,6 +39,11 @@ public class DashboardActivity2 extends AppCompatActivity implements NavigationV
                 .commit();
 
         fragmentManager.beginTransaction()
+                .add(R.id.fragment_container, cartFragment)
+                .hide(cartFragment)
+                .commit();
+
+        fragmentManager.beginTransaction()
                 .add(R.id.fragment_container, dashboardFragment)
                 .commit();
 
@@ -49,15 +54,19 @@ public class DashboardActivity2 extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.navigation_menu_home){
             fragmentManager.beginTransaction()
-                    .hide(activateFragment)
-                    .show(dashboardFragment)
+                    .replace(R.id.fragment_container, dashboardFragment)
                     .commit();
             activateFragment = dashboardFragment;
             return true;
+        } else if (item.getItemId() == R.id.navigation_menu_cart){
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, cartFragment)
+                    .commit();
+            activateFragment = cartFragment;
+            return true;
         } else if (item.getItemId() == R.id.navigation_menu_profile) {
             fragmentManager.beginTransaction()
-                    .hide(activateFragment)
-                    .show(settingFragment)
+                    .replace(R.id.fragment_container, settingFragment)
                     .commit();
             activateFragment = settingFragment;
             return true;

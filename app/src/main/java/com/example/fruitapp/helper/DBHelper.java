@@ -8,9 +8,11 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.fruitapp.model.Cart;
 import com.example.fruitapp.model.Fruit;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -36,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_CART = "trCart";
     private static final String TABLE_CART_ID = "id";
     private static final String TABLE_CART_USERNAME = "username";
-    private static final String TABLE_CART_FRUIT_ID = "fruit_id";
+    private static final String TABLE_CART_FRUIT_NAME = "fruit_name";
 
 
     public DBHelper(@Nullable Context context) {
@@ -60,12 +62,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 + TABLE_FRUIT_PRICE  + " NUMERIC "
                 + ")";
         sqLiteDatabase.execSQL(queryCreateFruitTable);
+        String queryCreateCartTable = "CREATE TABLE " + TABLE_CART+ "("
+                + TABLE_CART_ID + " INTEGER PRIMARY KEY,"
+                + TABLE_CART_USERNAME  + " TEXT, "
+                + TABLE_CART_FRUIT_NAME + " TEXT "
+                + ")";
+        sqLiteDatabase.execSQL(queryCreateCartTable);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
-        onCreate(sqLiteDatabase);
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRUIT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART);
+        onCreate(db);
     }
 
     public void onStartApp(){
@@ -73,7 +84,45 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRUIT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART);
         onCreate(db);
+    }
+
+    public void InsertCart(String fruitName, String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryInsertCart = "INSERT INTO " + TABLE_CART
+                + "( "
+                + TABLE_CART_USERNAME + " , "
+                + TABLE_CART_FRUIT_NAME
+                + " )"
+                + " VALUES (?,?)";
+
+        db.execSQL(queryInsertCart, new String[]{username, fruitName});
+    }
+
+    public ArrayList<Cart> GetCart(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryGetCart = "SELECT * FROM " + TABLE_CART
+                + " WHERE " + TABLE_USER_USERNAME + "= ?";
+
+        Cursor cursor = db.rawQuery(queryGetCart, new String[]{username});
+
+        Random random = new Random();
+
+        ArrayList<Cart> tempCarts = new ArrayList<Cart>();
+        if (cursor.moveToFirst()){
+            do{
+                Cart cart = new Cart();
+                cart.setID(cursor.getInt(0));
+                cart.setUsername(cursor.getString(1));
+                cart.setFruitName(cursor.getString(2));
+                cart.setQuantity(random.nextInt(11) + 1);
+                tempCarts.add(cart);
+            } while (cursor.moveToNext());
+        }
+        return tempCarts;
     }
 
     public Boolean login(String username, String password){

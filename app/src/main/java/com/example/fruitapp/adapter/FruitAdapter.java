@@ -16,15 +16,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fruitapp.R;
+import com.example.fruitapp.helper.DBHelper;
 import com.example.fruitapp.model.Fruit;
 import java.util.ArrayList;
 
 public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
+
     private ArrayList<Fruit> fruitsList = new ArrayList<Fruit>();
 
     public FruitAdapter(ArrayList<Fruit> fruitsList){
         this.fruitsList = fruitsList;
     }
+
 
     @NonNull
     @Override
@@ -33,7 +36,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
         View view = layoutInflater.inflate(R.layout.rv_dashboard, parent, false);
-        FruitAdapter.ViewHolder viewHolder = new ViewHolder(view);
+        FruitAdapter.ViewHolder viewHolder = new ViewHolder(view, context);
 
         return viewHolder;
     }
@@ -59,8 +62,9 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView tV_FruitCode, tV_FruitName, tV_FruitPrice;
+        private DBHelper dbHelper;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
 
             itemView.setOnClickListener(this);
@@ -68,11 +72,14 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
             tV_FruitCode = (TextView) itemView.findViewById(R.id.tV_FruitCode);
             tV_FruitName = (TextView) itemView.findViewById(R.id.tV_FruitName);
             tV_FruitPrice = (TextView) itemView.findViewById(R.id.tV_FruitPrice);
+
+            dbHelper = new DBHelper(context);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), String.valueOf(tV_FruitName.getText()).toUpperCase(), Toast.LENGTH_SHORT).show();
+            dbHelper.InsertCart(tV_FruitName.getText().toString(), dbHelper.GetSession());
+            Toast.makeText(view.getContext(), "Success Insert to Cart.", Toast.LENGTH_SHORT).show();
         }
     }
 }
