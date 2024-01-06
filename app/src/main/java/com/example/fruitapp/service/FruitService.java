@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.fruitapp.helper.DBHelper;
 import com.example.fruitapp.helper.GetDataService;
 import com.example.fruitapp.helper.RetrofitHelper;
 import com.example.fruitapp.model.Fruit;
@@ -48,6 +49,7 @@ public class FruitService {
         String url = "https://ec.europa.eu/agrifood/api/fruitAndVegetable/products";
 
         ArrayList<Fruit> tempFruits = new ArrayList<Fruit>();
+        DBHelper dbHelper = new DBHelper(context);
 
         JsonArrayRequest stringRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -61,6 +63,7 @@ public class FruitService {
                                 fruit.setID(i+6);
                                 fruit.setPrice(GeneratePrice());
                                 tempFruits.add(fruit);
+                                dbHelper.AddFruit(fruit);
                             }
                         } catch (JSONException e) {
                             Log.d("QiuQiu", "JSONException: " + e);
@@ -74,12 +77,6 @@ public class FruitService {
             }
         }
         );
-
-        try {
-            Thread.sleep(3 * 1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         this.fruitArrayList.addAll(tempFruits);
 

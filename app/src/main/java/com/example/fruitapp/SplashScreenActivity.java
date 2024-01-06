@@ -2,26 +2,16 @@ package com.example.fruitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.fruitapp.helper.DBHelper;
-import com.example.fruitapp.helper.GetDataService;
-import com.example.fruitapp.helper.RetrofitHelper;
 import com.example.fruitapp.model.Fruit;
 import com.example.fruitapp.service.FruitService;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -43,14 +33,18 @@ public class SplashScreenActivity extends AppCompatActivity {
         dbHelper.Register("Admin", "Admin12345");
 
         fruitService = new FruitService();
+        fruitService.findAllFruits(SplashScreenActivity.this);
 
-        fruitService.findAllFruits(this);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<Fruit> temp = fruitService.GetFruitsList();
+                dbHelper.AddFruits(temp);
 
-        ArrayList<Fruit> temp = fruitService.GetFruitsList();
-
-        dbHelper.AddFruits(temp);
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+                Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, 5000);
     }
 }

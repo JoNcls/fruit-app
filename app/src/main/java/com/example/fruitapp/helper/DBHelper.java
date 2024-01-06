@@ -215,6 +215,23 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(queryDeleteAccount, new String[] {username});
     }
 
+    public void AddFruit(Fruit fruit){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String queryInsertFruit = "INSERT INTO " + TABLE_FRUIT
+                + "(" + TABLE_FRUIT_ID + ","
+                + TABLE_FRUIT_CODE + ","
+                + TABLE_FRUIT_NAME + ","
+                + TABLE_FRUIT_PRICE +")"
+                + " VALUES " + "(?,?,?,?)";
+        db.execSQL(queryInsertFruit, new Object[]{
+                fruit.getID(),
+                fruit.getCode(),
+                fruit.getName(),
+                fruit.getPrice(),
+        });
+    }
+
     public void AddFruits(ArrayList<Fruit> fruitArrayList){
         SQLiteDatabase db = this.getWritableDatabase();
 
