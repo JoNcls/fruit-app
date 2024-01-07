@@ -17,16 +17,12 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private DBHelper dbHelper;
 
-    private TextView tV_App;
-
     private FruitService fruitService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-        tV_App = (TextView) findViewById(R.id.tV_App);
 
         dbHelper = new DBHelper(this);
         dbHelper.onStartApp();
