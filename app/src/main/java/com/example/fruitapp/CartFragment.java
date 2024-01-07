@@ -33,7 +33,7 @@ public class CartFragment extends Fragment {
         dbHelper = new DBHelper(getActivity());
 
         ArrayList<Cart> cartArrayList = dbHelper.GetCart(dbHelper.GetSession());
-        Log.d("QiuQiu", "onCreateView: " + cartArrayList.size());
+        Log.d("QiuQiu", "onCreateView: " + cartArrayList.toString());
 
         cartAdapter = new CartAdapter(cartArrayList);
 

@@ -1,21 +1,19 @@
 package com.example.fruitapp.model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class Cart {
     private int ID;
     private String Username;
-    private String fruitName;
+    private int FruitID;
     private int Quantity;
 
     public Cart() {
     }
 
-    public Cart(int ID, String username, String fruitName, int quantity) {
+    public Cart(int ID, String username, int fruitID, int quantity) {
         this.ID = ID;
-        Username = username;
-        this.fruitName = fruitName;
-        Quantity = quantity;
+        this.Username = username;
+        this.FruitID = fruitID;
+        this.Quantity = quantity;
     }
 
     public int getID() {
@@ -34,12 +32,12 @@ public class Cart {
         Username = username;
     }
 
-    public String getFruitName() {
-        return fruitName;
+    public int getFruitID() {
+        return FruitID;
     }
 
-    public void setFruitName(String fruitName) {
-        this.fruitName = fruitName;
+    public void setFruitID(int fruitID) {
+        this.FruitID = fruitID;
     }
 
     public int getQuantity() {

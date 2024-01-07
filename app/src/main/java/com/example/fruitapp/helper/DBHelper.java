@@ -38,8 +38,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_CART = "trCart";
     private static final String TABLE_CART_ID = "id";
     private static final String TABLE_CART_USERNAME = "username";
-    private static final String TABLE_CART_FRUIT_NAME = "fruit_name";
-
+    private static final String TABLE_CART_FRUIT_ID = "fruit_id";
+    private static final String TABLE_CART_QUANTITY = "quantity";
 
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -65,7 +65,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String queryCreateCartTable = "CREATE TABLE " + TABLE_CART+ "("
                 + TABLE_CART_ID + " INTEGER PRIMARY KEY,"
                 + TABLE_CART_USERNAME  + " TEXT, "
-                + TABLE_CART_FRUIT_NAME + " TEXT "
+                + TABLE_CART_FRUIT_ID + " TEXT, "
+                + TABLE_CART_QUANTITY + " TEXT "
                 + ")";
         sqLiteDatabase.execSQL(queryCreateCartTable);
     }
@@ -88,17 +89,18 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void InsertCart(String fruitName, String username){
+    public void InsertCart(int fruitID, String username, int Quantity){
         SQLiteDatabase db = this.getWritableDatabase();
 
         String queryInsertCart = "INSERT INTO " + TABLE_CART
                 + "( "
                 + TABLE_CART_USERNAME + " , "
-                + TABLE_CART_FRUIT_NAME
+                + TABLE_CART_FRUIT_ID + " , "
+                + TABLE_CART_QUANTITY
                 + " )"
-                + " VALUES (?,?)";
+                + " VALUES (?,?,?)";
 
-        db.execSQL(queryInsertCart, new String[]{username, fruitName});
+        db.execSQL(queryInsertCart, new String[]{username, String.valueOf(fruitID), String.valueOf(Quantity)});
     }
 
     public ArrayList<Cart> GetCart(String username){
@@ -109,16 +111,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(queryGetCart, new String[]{username});
 
-        Random random = new Random();
-
         ArrayList<Cart> tempCarts = new ArrayList<Cart>();
         if (cursor.moveToFirst()){
             do{
                 Cart cart = new Cart();
                 cart.setID(cursor.getInt(0));
                 cart.setUsername(cursor.getString(1));
-                cart.setFruitName(cursor.getString(2));
-                cart.setQuantity(random.nextInt(11) + 1);
+                cart.setFruitID(cursor.getInt(2));
+                cart.setQuantity(cursor.getInt(3));
                 tempCarts.add(cart);
             } while (cursor.moveToNext());
         }
@@ -271,6 +271,27 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return tempFruits;
+    }
+
+    public Fruit GetFruitByID(int IDFruit){
+        String queryCountFruits = "SELECT * FROM " + TABLE_FRUIT
+                + " WHERE " + TABLE_FRUIT_ID + " = ?";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryCountFruits, new String[]{String.valueOf(IDFruit)});
+
+        Fruit tempFruit = new Fruit();
+        if (cursor.moveToFirst()){
+            Fruit fruit = new Fruit();
+            fruit.setID(Integer.parseInt(cursor.getString(0)));
+            fruit.setCode(cursor.getString(1));
+            fruit.setName(cursor.getString(2));
+            fruit.setPrice(cursor.getInt(3));
+            tempFruit = fruit;
+        }
+
+        return tempFruit;
     }
 
     public int GetCountFruits(){

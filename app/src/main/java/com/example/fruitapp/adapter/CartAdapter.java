@@ -1,6 +1,7 @@
 package com.example.fruitapp.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fruitapp.R;
+import com.example.fruitapp.helper.DBHelper;
 import com.example.fruitapp.model.Cart;
 import com.example.fruitapp.model.Fruit;
 
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     private ArrayList<Cart> cartsList = new ArrayList<Cart>();
+    private DBHelper dbHelper;
 
     public CartAdapter(ArrayList<Cart> cartsList){
         this.cartsList = cartsList;
@@ -29,6 +32,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         Context context = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
+        dbHelper = new DBHelper(context);
+
         View view = layoutInflater.inflate(R.layout.rv_cart, parent, false);
         CartAdapter.ViewHolder viewHolder = new ViewHolder(view);
 
@@ -37,13 +42,23 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Cart cart = cartsList.get(position);
+        try {
+            Cart cart = cartsList.get(position);
 
-        TextView tV_FruitName = holder.tV_FruitName;
-        TextView tV_Quantity = holder.tV_Quantity;
+            TextView tV_FruitName = holder.tV_FruitName;
+            TextView tV_Quantity = holder.tV_Quantity;
 
-        tV_FruitName.setText(cart.getFruitName());
-        tV_Quantity.setText(String.valueOf(cart.getQuantity()));
+            Log.d("QiuQiu", "onBindViewHolder: " + cart.getFruitID());
+
+            Fruit tempFruit = dbHelper.GetFruitByID(cart.getFruitID());
+
+            Log.d("QiuQiu", "onBindViewHolder: " + tempFruit.getName());
+
+            tV_FruitName.setText(tempFruit.getName());
+            tV_Quantity.setText(String.valueOf(cart.getQuantity()));
+        } catch (Exception ex){
+            Log.d("QiuQiu", "onBindViewHolder: " + ex.toString());
+        }
     }
 
     @Override

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.FruitApp"
         tools:targetApi="33">
         <activity
+            android:name=".BuyFruitActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
@@ -42,8 +45,7 @@
         <activity android:name=".CartFragment" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
