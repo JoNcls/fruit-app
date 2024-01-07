@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#4feb34</color>
     <color name="light_green">#92e084</color>
+    <color name="satu">#41F323</color>
+    <color name="dua">#0A7289</color>
 </resources>
