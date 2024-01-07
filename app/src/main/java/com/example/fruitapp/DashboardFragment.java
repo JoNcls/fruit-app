@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,12 +27,18 @@ public class DashboardFragment extends Fragment {
 
     private FruitAdapter fruitAdapter;
 
+    private TextView tV_UserGreeting;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, null);
 
+        tV_UserGreeting = (TextView) view.findViewById(R.id.tV_UserGreeting);
+
         dbHelper = new DBHelper(getActivity());
+
+        tV_UserGreeting.setText("Welcome, " + dbHelper.GetSession());
 
         ArrayList<Fruit> fruitArrayList = dbHelper.GetFruitsList();
 
