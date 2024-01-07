@@ -74,4 +74,12 @@ public class DashboardActivity2 extends AppCompatActivity implements NavigationV
 
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, activateFragment)
+                .commit();
+    }
 }
